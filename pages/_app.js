@@ -5,7 +5,8 @@ import Navbar from "../components/Navbar";
 function MyApp({ Component, pageProps, router }) {
   return (
     <>
-      <Navbar />
+      {router.route !== "/" && <Navbar />}
+
       <AnimatePresence exitBeforeEnter>
         <Component {...pageProps} key={router.route} />
       </AnimatePresence>
