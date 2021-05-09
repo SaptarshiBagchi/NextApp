@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import Form from "../components/Form";
 
@@ -21,22 +22,31 @@ export default function Home() {
     let generatedErrors = {};
     //console.log(`${fields.username.length} and ${fields.password.length}`);
     if (fields.username.length === 0) {
-      console.log("username is blank actually");
-      generatedErrors.username = "Username cannot be empty";
+      // console.log("username is blank actually");
+      generatedErrors = {
+        ...generatedErrors,
+        username: "Username cannot be empty",
+      };
     }
 
     if (fields.password.length === 0)
-      generatedErrors.password = "Password cannot be empty";
-    if (generatedErrors === {}) {
-      setErrors(generatedErrors);
-      return;
-    }
+      generatedErrors = {
+        ...generatedErrors,
+        password: "Password cannot be empty",
+      };
+    console.log(generatedErrors);
+    if (JSON.stringify(generatedErrors) === "{}") router.push("/about");
 
-    router.replace("/about");
+    setErrors(generatedErrors);
   };
 
   return (
-    <div className="w-full h-screen">
+    <motion.div
+      initial={false}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "-100%", opacity: 0 }}
+      className="w-full h-screen"
+    >
       <Form
         onSubmit={handleSubmit}
         errors={errors}
@@ -44,6 +54,6 @@ export default function Home() {
         fields={fields}
         setFields={setFields}
       />
-    </div>
+    </motion.div>
   );
 }

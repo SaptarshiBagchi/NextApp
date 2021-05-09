@@ -6,13 +6,12 @@ export default function Form({
   fields,
   setFields,
 }) {
-  console.group("errors");
-  console.log(errors);
-  console.groupEnd();
   return (
     <div className="lg:w-2/5 sm:w-3/5 h-auto px-10 py-5 mx-auto mt-32 bg-white rounded-md shadow-md">
-      <h3 className="text-center font-semibold text-xl ">Login to continue</h3>
-      <form onSubmit={onSubmit} className="my-3">
+      <h3 className="text-center font-semibold text-2xl ">
+        <span className="text-blue-700 underline">Login</span> to continue
+      </h3>
+      <form onSubmit={onSubmit} className="my-8">
         <div>
           <label>Username</label>
         </div>
