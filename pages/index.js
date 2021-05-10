@@ -3,7 +3,7 @@ import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Form from "../components/Form";
 
 export default function Home() {
@@ -35,11 +35,17 @@ export default function Home() {
         password: "Password cannot be empty",
       };
     console.log(generatedErrors);
-    if (JSON.stringify(generatedErrors) === "{}") router.push("/about");
+    if (JSON.stringify(generatedErrors) === "{}") {
+      sessionStorage.setItem("username", fields.username);
+      sessionStorage.setItem("password", fields.password);
+      router.push("/about");
+    }
 
     setErrors(generatedErrors);
   };
-
+  useEffect(() => {
+    if (sessionStorage.getItem("username")) router.replace("/about");
+  }, []);
   return (
     <motion.div
       initial={false}
